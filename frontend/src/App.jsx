@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import './App.css';
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = '/api';
 
 function App() {
   // Dados principais
@@ -526,7 +526,7 @@ function App() {
                       <button className="action-btn edit" onClick={() => handleEditTask(task)} title="Editar">
                         <Edit3 size={15} />
                       </button>
-                      <button className="action-btn delete" onClick={() => handleDeleteTask(task)} title="Excluir">
+                      <button className="action-btn delete" onClick={() => handleDeleteTask(task.id)} title="Excluir">
                         <Trash2 size={15} />
                       </button>
                     </div>

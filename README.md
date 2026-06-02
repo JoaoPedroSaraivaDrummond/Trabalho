@@ -78,7 +78,56 @@ Trabalho/
 
 ---
 
-## 4. Passo a Passo Completo para Subir a Aplicação
+# 4. Docker – Subindo a Aplicação em Produção
+
+A aplicação pode ser executada totalmente dentro de containers Docker. Essa abordagem elimina a necessidade de manter três terminais abertos e garante que as URLs corretas sejam usadas.
+
+### 📋 Pré‑requisitos
+- **Docker** e **Docker Compose** instalados e em execução.
+- Nenhuma dependência do Node.js precisa ser instalada localmente (as imagens já contêm tudo).
+
+### 🚀 Como iniciar tudo com Docker
+1. **Na raiz do projeto** (`Trabalho/`) execute:
+   ```bash
+   docker compose up -d
+   ```
+   - O **PostgreSQL** será iniciado na porta **5432**.
+   - O **backend** será exposto em **http://localhost:5000**.
+   - O **frontend** será servido por Nginx na porta **80** (ou 8080 se preferir mudar o `docker-compose.yml`).
+
+2. **Verificar os containers**:
+   ```bash
+   docker ps -a
+   ```
+   Você deverá ver três containers em estado **Up**.
+
+3. **Acessar a aplicação**:
+   - **Frontend**: abra o navegador em **http://localhost** (ou **http://localhost:80**) – este é o SPA React servindo os arquivos estáticos.
+   - **Backend**: a API está disponível em **http://localhost:5000/api**.
+   - **Web Service integrado**: ainda acessível via **/api/external-service**.
+
+### 🛠️ Desenvolvimento local (opcional)
+Se preferir trabalhar com os servidores de desenvolvimento (`npm run dev`), mantenha as instruções originais, mas lembre‑se de:
+- Atualizar `frontend/src/App.jsx` para usar `const API_BASE = '/api';` (já feito).
+- Configurar o proxy em `vite.config.js` para redirecionar `/api` ao backend.
+
+### 📦 Limpar o ambiente Docker
+Para parar e remover os containers, rede e volumes criados:
+```bash
+docker compose down -v
+```
+Isso deixa o banco de dados limpo para uma nova inicialização.
+
+---
+
+## 5. Testando as Camadas e o Serviço Web
+1. Abra o navegador em **http://localhost** (ou **http://localhost:80**).
+2. Crie um novo projeto clicando no ícone de mais (`+`) ao lado de "Projetos" na barra lateral esquerda (ex: "Faculdade").
+3. Clique em **"Nova Tarefa"** no topo superior direito.
+4. Preencha os campos (Título, Categoria, Prioridade, Projeto) e clique em **"Criar Tarefa"**.
+5. No card da tarefa recém‑criada, clique no botão **"Dica Web Service"**.
+6. Um modal será renderizado carregando dinamicamente as informações do clima simulado e dicas de produtividade do **Serviço Web Integrado** rodando sob `/api/external-service`.
+
 
 Siga as instruções abaixo abrindo três terminais separados para rodar os diferentes componentes do ecossistema.
 
